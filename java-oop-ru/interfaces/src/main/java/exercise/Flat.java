@@ -28,10 +28,8 @@ public class Flat implements Home {
 
     @Override
     public String toString() {
-        return "Flat{" +
-                "Квартира площадью " + getArea() +
-                " метров на " + getFloor() + " этаже" +
-                '}';
+        return  "Квартира площадью " + getArea()
+                + " метров на " + getFloor() + " этаже";
     }
 
     public int compareTo(Home another) {

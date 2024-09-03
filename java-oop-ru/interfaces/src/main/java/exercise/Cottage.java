@@ -21,10 +21,8 @@ public class Cottage implements Home {
 
     @Override
     public String toString() {
-        return "Cottage{" +
-                getFloorCount() + " этажный коттедж площадью " + getArea() +
-                " метров" +
-                '}';
+        return getFloorCount() + " этажный коттедж площадью "
+                + getArea() + " метров";
     }
 
     public int compareTo(Home another) {
