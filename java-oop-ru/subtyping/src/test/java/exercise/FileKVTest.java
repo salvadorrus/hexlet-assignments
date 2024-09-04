@@ -40,5 +40,25 @@ class FileKVTest {
         assertEquals(storage.get("key", "hexlet"), "value");
         assertEquals(storage.get("key1", "hexlet"), "hexlet");
     }
+
+    @Test
+    void fillStorage() {
+        Map<String, String> testMap = Map.of("key", "value");
+        KeyValueStorage storage = new FileKV(filepath.toString(), testMap);
+        var newKey = "key1";
+        var newValue = "value1";
+        var fillStorage = Map.of("key", "value", newKey, newValue);
+
+        storage.set(newKey, newValue);
+        assertEquals(storage.get("key", "hexlet"), "value");
+        assertEquals(storage.get(newKey, "hexlet"), "value1");
+        assertEquals(storage.get("testDefaultValue", "hexlet"), "hexlet");
+        assertEquals(storage.toMap(), fillStorage);
+
+        storage.unset(newKey);
+        assertEquals(storage.get("key", "hexlet"), "value");
+        assertEquals(storage.get(newKey, "hexlet"), "hexlet");
+        assertEquals(storage.toMap(), testMap);
+    }
     // END
 }
