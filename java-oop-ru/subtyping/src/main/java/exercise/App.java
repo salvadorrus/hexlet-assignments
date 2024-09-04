@@ -1,6 +1,5 @@
 package exercise;
 
-import java.util.Map;
 
 // BEGIN
 public class App {

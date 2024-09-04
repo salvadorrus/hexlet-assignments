@@ -14,7 +14,7 @@ public class FileKV implements KeyValueStorage {
         this.fileStorage = readFile(filePath, fileStorage);
     }
 
-    public static Map<String, String> readFile (String filePath, Map<String, String> fileStorage) {
+    public static Map<String, String> readFile(String filePath, Map<String, String> fileStorage) {
 
         Map<String, String> resultStorage = new HashMap<>(fileStorage);
         var normalisePath = Utils.readFile(filePath);
