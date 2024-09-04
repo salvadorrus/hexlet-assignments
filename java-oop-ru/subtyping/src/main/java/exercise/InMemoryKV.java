@@ -9,7 +9,7 @@ public class InMemoryKV implements KeyValueStorage {
     private Map<String, String> storage;
 
     public InMemoryKV(Map<String, String> dictionary) {
-        this.storage = dictionary;
+        this.storage = new HashMap<>(dictionary);
     }
 
     @Override
