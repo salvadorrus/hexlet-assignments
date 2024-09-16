@@ -30,8 +30,4 @@ class Address {
         this.houseNumber = houseNumber;
         this.flatNumber = flatNumber;
     }
-
-    public Address() {
-
-    }
 }
