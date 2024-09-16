@@ -10,10 +10,10 @@ class Validator {
         List<String> result = new ArrayList<>();
         Field[] fields = address.getClass().getDeclaredFields();
         for (Field field : fields) {
+            var resultField =field.getName();
             field.setAccessible(true);
-            NotNull notNull = field.getAnnotation(NotNull.class);
-            if (notNull == null) {
-                result.add(String.valueOf(field));
+            if (field.isAnnotationPresent(NotNull.class)) {
+                result.add(resultField);
             }
         }
         return result;
