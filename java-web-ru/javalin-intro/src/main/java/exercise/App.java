@@ -14,12 +14,13 @@ public final class App {
             config.bundledPlugins.enableDevLogging();
         });
 
-        app.get("/", ctx -> ctx.result("Welcome to Javalin!"));
+        app.get("/welcome", ctx -> ctx.result("Welcome to Javalin!"));
 
         return app;
 
         // END
     }
+
 
     public static void main(String[] args) {
         Javalin app = getApp();
