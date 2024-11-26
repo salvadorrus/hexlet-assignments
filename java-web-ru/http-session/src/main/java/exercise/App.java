@@ -17,14 +17,13 @@ public final class App {
         });
 
         // BEGIN
-        List<Map<String, String>> users = new ArrayList<>();
-
         app.get("/users", ctx -> {
             var page = ctx.queryParamAsClass("page", Integer.class).getOrDefault(1);
             var per = ctx.queryParamAsClass("per", Integer.class).getOrDefault(5);
             var startPage = per * (page - 1);
+            List<Map<String, String>> users = new ArrayList<>();
             for (var i = startPage; i < (startPage + per); i++) {
-                var result = USERS.get(1);
+                var result = USERS.get(i);
                 users.add(result);
             }
             ctx.json(users);
