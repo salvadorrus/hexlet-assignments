@@ -39,7 +39,7 @@ public final class App {
                             () -> new NotFoundResponse("User not found"));
 
             var page2 = new UserPage(user);
-            ctx.render("users/snow.jte", model("page2", page2));
+            ctx.render("users/show.jte", model("page2", page2));
         });
         // END
 
