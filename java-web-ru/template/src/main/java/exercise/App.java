@@ -35,7 +35,8 @@ public final class App {
             var id = ctx.pathParam("id");
             var user = USERS.stream()
                     .filter(user1 -> user1.getId() == Long.parseLong(id))
-                    .findFirst().get();
+                    .findFirst().orElseThrow(
+                            () -> new NotFoundResponse("User not found"));
 
             var page2 = new UserPage(user);
             ctx.render("users/snow.jte", model("page2", page2));
