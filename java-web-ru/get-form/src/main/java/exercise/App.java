@@ -32,12 +32,11 @@ public final class App {
                 for (var user : USERS) {
                     var check = user.getFirstName().toLowerCase();
                     var check2 = term.toLowerCase();
-                    if (check.contains(check2)){
+                    if (check.contains(check2)) {
                         users.add(user);
                     }
                 }
-            }
-            else {
+            } else {
                 users = new ArrayList<>(USERS);
             }
             var page = new UsersPage(users, term);
