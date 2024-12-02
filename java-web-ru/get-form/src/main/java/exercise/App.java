@@ -4,12 +4,15 @@ import io.javalin.Javalin;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import exercise.model.User;
 import exercise.dto.users.UsersPage;
+
 import static io.javalin.rendering.template.TemplateUtil.model;
+
 import io.javalin.rendering.template.JavalinJte;
 
-import org.apache.commons.lang3.StringUtils;
+
 
 public final class App {
 
@@ -31,12 +34,11 @@ public final class App {
                 for (var user : USERS) {
                     var check = user.getFirstName().toLowerCase();
                     var check2 = term.toLowerCase();
-                    if (check.contains(check2)){
+                    if (check.contains(check2)) {
                         users.add(user);
                     }
                 }
-            }
-            else {
+            } else {
                 users = new ArrayList<>(USERS);
             }
             var page = new UsersPage(users, term);
