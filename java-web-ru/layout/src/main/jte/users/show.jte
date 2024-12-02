@@ -1,7 +1,8 @@
 @import exercise.dto.users.UserPage
 @param UserPage page2
 
-
+@template.layout.page(
+content = @`
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -36,3 +37,4 @@
 </div>
 </body>
 </html>
+)
