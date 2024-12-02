@@ -26,9 +26,9 @@ content = @`
                 </thead>
                 <tbody>
                     <tr>
-                        <td>${page2.getUser().getFirstName()}</td>
-                        <td>${page2.getUser().getLastName()}  </td>
-                        <td>${page2.getUser().getEmail()}  </td>
+                        <td>${page.getUser().getFirstName()}</td>
+                        <td>${page.getUser().getLastName()}  </td>
+                        <td>${page.getUser().getEmail()}  </td>
                         <td> </td>
                     </tr>
                 </tbody>

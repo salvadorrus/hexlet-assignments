@@ -15,7 +15,7 @@
   <body>
     <div class="mx-auto p-4 py-md-5">
       <main>
-            <a href="/users">Пользователи</a>
+            <h1>Привет!<h1>
       </main>
     </div>
   </body>
