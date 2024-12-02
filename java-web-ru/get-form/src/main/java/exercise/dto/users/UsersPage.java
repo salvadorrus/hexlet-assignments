@@ -8,10 +8,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 // BEGIN
-@AllArgsConstructor
 @Getter
+@AllArgsConstructor
 public class UsersPage {
-    private List<User> users;
-    public String term;
+    List<User> users;
+    String term;
 }
 // END
