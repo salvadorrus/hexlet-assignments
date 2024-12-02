@@ -1,3 +1,7 @@
+@import exercise.dto.users.UsersPage
+
+@template.layout.page(
+    content = @`
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -16,3 +20,5 @@
     </div>
   </body>
 </html>
+`
+)
