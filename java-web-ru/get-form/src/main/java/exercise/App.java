@@ -12,8 +12,6 @@ import static io.javalin.rendering.template.TemplateUtil.model;
 
 import io.javalin.rendering.template.JavalinJte;
 
-import org.apache.commons.lang3.StringUtils;
-
 public final class App {
 
     // Каждый пользователь представлен объектом класса User
@@ -27,20 +25,23 @@ public final class App {
         });
 
         // BEGIN
-        app.get("/users", ctx -> {
+        app.get("users/", ctx -> {
             var term = ctx.queryParam("term");
-            ArrayList<User> result = new ArrayList<>();
+            List<User> users = new ArrayList<>();
             if (term != null) {
-                for (User user : USERS) {
-                    if (StringUtils.startsWithIgnoreCase(user.getFirstName(), term)) {
-                        result.add(user);
+                for (var user : USERS) {
+                    var check = user.getFirstName().toLowerCase();
+                    var check2 = term.toLowerCase();
+                    if (check.contains(check2)){
+                        users.add(user);
                     }
                 }
-            } else {
-                result.addAll(USERS);
             }
-            var page = new UsersPage(result, term);
-            ctx.render("users/index.jte", model("usersPage", page));
+            else {
+                users = new ArrayList<>(USERS);
+            }
+            var page = new UsersPage(users, term);
+            ctx.render("users/index.jte", model("page", page));
         });
         // END
 
