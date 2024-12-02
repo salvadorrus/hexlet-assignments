@@ -6,12 +6,13 @@ import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.apache.commons.lang3.StringUtils;
 
 // BEGIN
-@Getter
 @AllArgsConstructor
+@Getter
 public class UsersPage {
-    List<User> users;
-    String term;
+    private List<User> users;
+    private String term;
 }
 // END
