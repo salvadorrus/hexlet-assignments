@@ -3,7 +3,6 @@ package exercise;
 import io.javalin.Javalin;
 import io.javalin.validation.ValidationException;
 
-import java.util.Collections;
 import java.util.List;
 
 import exercise.model.Article;
@@ -38,7 +37,7 @@ public final class App {
         // BEGIN
         app.get("/articles/build", ctx -> {
             var page = new BuildArticlePage();
-            ctx.render("articles/build.jte", Collections.singletonMap("page", page));
+            ctx.render("/articles/build.jte", model("page", page));
         });
 
         app.post("/articles", ctx -> {
