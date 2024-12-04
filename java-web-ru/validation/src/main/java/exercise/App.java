@@ -60,7 +60,7 @@ public final class App {
                 ctx.redirect("/articles");
             } catch (ValidationException e) {
                 var page = new BuildArticlePage(title, content, e.getErrors());
-                ctx.status(422).render("users/build.jte", model("page", page));
+                ctx.status(422).render("/articles/build.jte", model("page", page));
             }
         });
         // END
