@@ -22,7 +22,7 @@ content = @`
     <div>
       <label>
         content
-        <textarea type="email" required name="content" value="${page.getContent()}"></textarea>
+        <textarea required name="content" value="${page.getContent()}"></textarea>
       </label>
     </div>
     <input type="submit" value="Зарегистрировать" />
