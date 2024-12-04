@@ -15,13 +15,13 @@ content = @`
 <form action="/articles" method="post">
     <div>
       <label>
-        title
+        Title
         <input type="text" name="title" value="${page.getTitle()}" />
       </label>
     </div>
     <div>
       <label>
-        content
+        Content
         <textarea required name="content" rows="2" cols="15" value="${page.getContent()}"></textarea>
       </label>
     </div>
