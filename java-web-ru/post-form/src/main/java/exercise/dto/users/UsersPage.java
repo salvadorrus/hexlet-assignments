@@ -10,11 +10,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class UsersPage {
-//    private String firstName;
-//    private String lastName;
-//    private String email;
-//    private String password;
-
     private List<User> users;
 }
 // END
