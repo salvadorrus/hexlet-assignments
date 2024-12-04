@@ -3,6 +3,7 @@ package exercise;
 import io.javalin.Javalin;
 import io.javalin.validation.ValidationException;
 
+import java.util.Collections;
 import java.util.List;
 
 import exercise.model.Article;
@@ -37,29 +38,30 @@ public final class App {
         // BEGIN
         app.get("/articles/build", ctx -> {
             var page = new BuildArticlePage();
-            ctx.render("/articles/build.jte", model("page", page));
+            ctx.render("/articles/build.jte", Collections.singletonMap("page", page));
         });
 
         app.post("/articles", ctx -> {
             var title = ctx.formParam("title");
             var content = ctx.formParam("content");
+
             try {
                 ctx.formParamAsClass("title", String.class)
                         .check(value -> value.length() > 2, "Название не должно быть короче двух символов")
                         .check(value -> ArticleRepository.getEntities().stream()
-                                        .noneMatch(art -> art.getTitle().equals(value)),
+                                        .noneMatch(article -> article.getTitle().equals(value)),
                                 "Статья с таким названием уже существует")
                         .get();
                 ctx.formParamAsClass("content", String.class)
                         .check(value -> value.length() >= 10,
-                                "Статья должна быть не короче 10 символов")
+                                "Содержимое статьи должно быть не короче 10 символов")
                         .get();
                 var article = new Article(title, content);
                 ArticleRepository.save(article);
                 ctx.redirect("/articles");
             } catch (ValidationException e) {
                 var page = new BuildArticlePage(title, content, e.getErrors());
-                ctx.status(422).render("articles/build.jte", model("page", page));
+                ctx.status(422).render("/articles/build.jte", model("page", page));
             }
         });
         // END
