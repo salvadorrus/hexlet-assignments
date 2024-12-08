@@ -74,7 +74,7 @@ public class PostsController {
         var name = ctx.formParam("name");
         var body = ctx.formParam("body");
 
-        Post post = null;
+        Post post = PostRepository.find(id).orElseThrow(() -> new NotFoundResponse("Post not found"));
         try {
             ctx.formParamAsClass("name", String.class)
                     .check(value -> value.length() > 2, "Название не должно быть короче двух символов")
@@ -92,7 +92,7 @@ public class PostsController {
             ctx.redirect("/posts");
         } catch (ValidationException e) {
             var page = new EditPostPage(id, name, body, e.getErrors());
-            ctx.status(422).render("post/build.jte", Collections.singletonMap("page", page));
+            ctx.status(422).render("posts/edit.jte", Collections.singletonMap("page", page));
         }
     }
     // END
