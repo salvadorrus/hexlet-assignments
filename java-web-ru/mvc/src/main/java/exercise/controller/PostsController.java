@@ -63,38 +63,36 @@ public class PostsController {
     // BEGIN
     public static void edit(Context ctx) {
         var id = ctx.pathParamAsClass("id", Long.class).get();
-
-        var post = PostRepository.find(id)
-                .orElseThrow(() -> new NotFoundResponse("Post not found"));
-
+        var post = PostRepository.find(id).orElseThrow(() -> new NotFoundResponse("Post not found"));
         var page = new EditPostPage(id, post.getName(), post.getBody(), null);
         ctx.render("posts/edit.jte", Collections.singletonMap("page", page));
     }
 
+
     public static void update(Context ctx) {
         var id = ctx.pathParamAsClass("id", Long.class).get();
+        var name = ctx.formParam("name");
+        var body = ctx.formParam("body");
 
-        var post = PostRepository.find(id)
-                .orElseThrow(() -> new NotFoundResponse("Post not found"));
+        Post post = PostRepository.find(id).orElseThrow(() -> new NotFoundResponse("Post not found"));
         try {
-            var name = ctx.formParamAsClass("name", String.class)
-                    .check(value -> value.length() >= 2, "Название не должно быть короче двух символов")
+            ctx.formParamAsClass("name", String.class)
+                    .check(value -> value.length() > 2, "Название не должно быть короче двух символов")
+                    .check(value -> PostRepository.getEntities().stream()
+                                    .noneMatch(art -> art.getName().equals(value)),
+                            "Статья с таким названием уже существует")
                     .get();
-
-            var body = ctx.formParamAsClass("body", String.class)
-                    .check(value -> value.length() >= 10, "Пост должен быть не короче 10 символов")
+            ctx.formParamAsClass("body", String.class)
+                    .check(value -> value.length() >= 10,
+                            "Статья должна быть не короче 10 символов")
                     .get();
-
-            post.setBody(body);
             post.setName(name);
+            post.setBody(body);
             PostRepository.save(post);
-
             ctx.redirect("/posts");
         } catch (ValidationException e) {
-            var name = ctx.formParam("name");
-            var body = ctx.formParam("body");
             var page = new EditPostPage(id, name, body, e.getErrors());
-            ctx.render("posts/edit.jte", Collections.singletonMap("page", page)).status(422);
+            ctx.status(422).render("posts/edit.jte", Collections.singletonMap("page", page));
         }
     }
     // END
