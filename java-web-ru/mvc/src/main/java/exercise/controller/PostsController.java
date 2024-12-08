@@ -14,6 +14,8 @@ import io.javalin.http.Context;
 import io.javalin.validation.ValidationException;
 import io.javalin.http.NotFoundResponse;
 
+import java.util.Collections;
+
 public class PostsController {
 
     public static void build(Context ctx) {
@@ -63,7 +65,7 @@ public class PostsController {
         var id = ctx.pathParamAsClass("id", Long.class).get();
         var post = PostRepository.find(id).orElseThrow(() -> new NotFoundResponse("Post not found"));
         var page = new EditPostPage(id, post.getName(), post.getBody(), null);
-        ctx.render("posts/edit.jte", model("page", page));
+        ctx.render("posts/edit.jte", Collections.singletonMap("page", page));
     }
 
 
@@ -90,7 +92,7 @@ public class PostsController {
             ctx.redirect("/posts");
         } catch (ValidationException e) {
             var page = new EditPostPage(id, name, body, e.getErrors());
-            ctx.status(422).render("post/build.jte", model("page", page));
+            ctx.status(422).render("post/build.jte", Collections.singletonMap("page", page));
         }
     }
     // END
