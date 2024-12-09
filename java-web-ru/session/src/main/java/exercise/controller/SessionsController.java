@@ -1,6 +1,8 @@
 package exercise.controller;
 
 import java.util.Collections;
+import java.util.Objects;
+
 import exercise.dto.MainPage;
 import exercise.dto.LoginPage;
 import exercise.repository.UsersRepository;
@@ -23,17 +25,15 @@ public class SessionsController {
     }
 
     public static void login(Context ctx) {
-        var name = ctx.formParam("name");
-        var password = ctx.formParam("password");
-
+        String name = ctx.formParam("name");
+        String enteredPassword = encrypt(Objects.requireNonNull(ctx.formParam("password")));
         var user = UsersRepository.findByName(name);
-
-        if (user != null && user.getPassword().equals(encrypt(password))) {
-            ctx.sessionAttribute("user", user.getName());
+        if (user != null && Objects.hashCode(user.getClass()) == Objects.hashCode(enteredPassword)) {
+            ctx.sessionAttribute("currentUser", name);
             ctx.redirect("/");
-        } else {
-            var errorMessage = "Wrong username or password";
-            var page = new LoginPage(name, errorMessage);
+        }
+        else {
+            LoginPage page = new LoginPage(name, "Wrong username or password");
             ctx.render("build.jte", Collections.singletonMap("page", page));
         }
     }
