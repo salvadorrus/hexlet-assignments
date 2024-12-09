@@ -6,6 +6,7 @@ import java.util.Objects;
 import exercise.dto.MainPage;
 import exercise.dto.LoginPage;
 import exercise.repository.UsersRepository;
+
 import static exercise.util.Security.encrypt;
 
 import io.javalin.http.Context;
@@ -28,11 +29,10 @@ public class SessionsController {
         String name = ctx.formParam("name");
         String enteredPassword = encrypt(Objects.requireNonNull(ctx.formParam("password")));
         var user = UsersRepository.findByName(name);
-        if (user != null && Objects.hashCode(user.getClass()) == Objects.hashCode(enteredPassword)) {
+        if (user.isPresent() && Objects.hashCode(user.getClass()) == Objects.hashCode(enteredPassword)) {
             ctx.sessionAttribute("currentUser", name);
             ctx.redirect("/");
-        }
-        else {
+        } else {
             LoginPage page = new LoginPage(name, "Wrong username or password");
             ctx.render("build.jte", Collections.singletonMap("page", page));
         }
