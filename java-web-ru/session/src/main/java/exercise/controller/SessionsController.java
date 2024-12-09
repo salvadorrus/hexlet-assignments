@@ -1,14 +1,11 @@
 package exercise.controller;
 
-import static io.javalin.rendering.template.TemplateUtil.model;
-
 import exercise.dto.MainPage;
 import exercise.dto.LoginPage;
 import exercise.repository.UsersRepository;
 
 import static exercise.util.Security.encrypt;
 
-import exercise.util.NamedRoutes;
 import io.javalin.http.Context;
 
 import java.util.Collections;
@@ -31,9 +28,9 @@ public class SessionsController {
         String name = ctx.formParam("name");
         String enteredPassword = encrypt(Objects.requireNonNull(ctx.formParam("password")));
         var user = UsersRepository.findByName(name);
-        if (user != null && Objects.hashCode(user.getClass()) == Objects.hashCode(enteredPassword)) {
+        if (user != null && Objects.hashCode(user.get().getPassword()) == Objects.hashCode(enteredPassword)) {
             ctx.sessionAttribute("currentUser", name);
-            ctx.redirect(NamedRoutes.rootPath());
+            ctx.redirect("/");
         } else {
             LoginPage page = new LoginPage(name, "Wrong username or password");
             ctx.render("build.jte", Collections.singletonMap("page", page));
@@ -42,7 +39,7 @@ public class SessionsController {
 
     public static void logout(Context ctx) {
         ctx.sessionAttribute("currentUser", null);
-        ctx.redirect(NamedRoutes.rootPath());
+        ctx.redirect("/");
     }
     // END
 }
