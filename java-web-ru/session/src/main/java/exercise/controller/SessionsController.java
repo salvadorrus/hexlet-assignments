@@ -28,7 +28,7 @@ public class SessionsController {
         String name = ctx.formParam("name");
         String enteredPassword = encrypt(Objects.requireNonNull(ctx.formParam("password")));
         var user = UsersRepository.findByName(name);
-        if (user != null && Objects.hashCode(user.get().getPassword()) == Objects.hashCode(enteredPassword)) {
+        if (user != null && Objects.hashCode(user.orElseThrow().getPassword()) == Objects.hashCode(enteredPassword)) {
             ctx.sessionAttribute("currentUser", name);
             ctx.redirect("/");
         } else {
