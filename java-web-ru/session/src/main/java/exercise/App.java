@@ -19,7 +19,7 @@ public final class App {
         app.get(NamedRoutes.rootPath(), SessionsController::root);
         app.get(NamedRoutes.buildSessionPath(), SessionsController::build);
         app.post(NamedRoutes.loginPath(), SessionsController::login);
-        app.post(NamedRoutes.logoutPath(), SessionsController::destroy);
+        app.post(NamedRoutes.logoutPath(), SessionsController::logout);
         // END
 
         return app;
