@@ -22,8 +22,13 @@ public class UsersController {
         var id = ctx.pathParamAsClass("id", Long.class).get();
         var user = UserRepository.find(id)
                 .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
+        var cookie = ctx.cookie("token");
         var page = new UserPage(user);
-        ctx.render("users/show.jte", model("page", page));
+        if (user.getToken().equals(cookie)) {
+            ctx.render("users/show.jte", model("page", page));
+        } else {
+            ctx.redirect(NamedRoutes.buildUserPath());
+        }
     }
 
     public static void create(Context ctx) {
