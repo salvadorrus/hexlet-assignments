@@ -1,28 +1,23 @@
 @import exercise.dto.LoginPage
 @import exercise.util.NamedRoutes
-@param LoginPage page
+@param LoginPage page = new exercise.dto.LoginPage(null, null)
+
 
 @template.layout.page(
 content = @`
     @if(page.getError() != null)
-        <div>
-            ${page.getError()}
-        </div>
+        <p>${page.getError()}</p>
     @endif
-
-    <form action="${NamedRoutes.buildSessionPath()}" method="post">
-        <label>
-            Имя
-            <input type="text" placeholder="Имя" name="name" value="${page.getName()}">
-        </label>
-        <label>
-            Пароль
-            <input type="password" placeholder="Пароль" name="password" />
-        </label>
-        <label>
-            Войти
-            <input type="submit" />
-        </label>
-    </form>
+    <div>
+        <form action="${NamedRoutes.loginPath()}" method="post">
+            <label>Имя
+                <input type="text" name="name" placeholder="Name" value="${page.getName()}">
+            </label>
+            <label>Пароль
+                <input type="password" name="password" placeholder="Password">
+            </label>
+            <input type="submit" value="Войти">
+        </form>
+    </div>
 `
 )
