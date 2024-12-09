@@ -29,7 +29,7 @@ public class SessionsController {
         String name = ctx.formParam("name");
         String enteredPassword = encrypt(Objects.requireNonNull(ctx.formParam("password")));
         Optional<User> user = UsersRepository.findByName(name);
-        if (user.isPresent() && Objects.hashCode(user.get().getPassword()) == Objects.hashCode(enteredPassword)) {
+        if (!user.isEmpty() && Objects.hashCode(user.get().getPassword()) == Objects.hashCode(enteredPassword)) {
             ctx.sessionAttribute("currentUser", name);
             ctx.redirect("/");
         } else {
