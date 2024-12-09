@@ -1,5 +1,6 @@
 package exercise.controller;
 
+import exercise.dto.MainPage;
 import exercise.dto.LoginPage;
 import exercise.repository.UsersRepository;
 
@@ -14,8 +15,10 @@ import java.util.Objects;
 public class SessionsController {
 
     // BEGIN
-    public static void index(Context ctx) throws Exception {
-        ctx.render("index.jte");
+    public static void index(Context ctx) {
+        String name = ctx.sessionAttribute("currentUser");
+        var page = new MainPage(name);
+        ctx.render("index.jte", Collections.singletonMap("page", page));
     }
 
     public static void build(Context ctx) throws Exception {
