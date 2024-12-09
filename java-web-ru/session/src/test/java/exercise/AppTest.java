@@ -31,14 +31,14 @@ class AppTest {
         assertThat(body1).doesNotContain("Выйти");
 
         HttpResponse<String> response2 = Unirest
-                .get(baseUrl + "/sessions/build").asString();
+            .get(baseUrl + "/sessions/build").asString();
         assertThat(response2.getStatus()).isEqualTo(200);
 
         HttpResponse<String> responsePost = Unirest
-                .post(baseUrl + "/sessions")
-                .field("name", "admin")
-                .field("password", "secret")
-                .asEmpty();
+            .post(baseUrl + "/sessions")
+            .field("name", "admin")
+            .field("password", "secret")
+            .asEmpty();
 
         assertThat(responsePost.getStatus()).isEqualTo(302);
 
@@ -50,8 +50,8 @@ class AppTest {
         assertThat(body3).contains("admin");
 
         HttpResponse<String> responseDelete = Unirest
-                .post(baseUrl + "/sessions/delete")
-                .asEmpty();
+            .post(baseUrl + "/sessions/delete")
+            .asEmpty();
         assertThat(responseDelete.getStatus()).isEqualTo(302);
 
         HttpResponse<String> response4 = Unirest.get(baseUrl + "/").asString();
@@ -64,10 +64,10 @@ class AppTest {
     void testLoginFail1() throws Exception {
 
         HttpResponse<String> responsePost = Unirest
-                .post(baseUrl + "/sessions")
-                .field("name", "noname")
-                .field("password", "secret")
-                .asString();
+            .post(baseUrl + "/sessions")
+            .field("name", "noname")
+            .field("password", "secret")
+            .asString();
 
         var body = responsePost.getBody();
         assertThat(body).contains("Wrong");
@@ -77,10 +77,10 @@ class AppTest {
     void testLoginFail2() throws Exception {
 
         HttpResponse<String> responsePost = Unirest
-                .post(baseUrl + "/sessions")
-                .field("name", "admin")
-                .field("password", "wrong_password")
-                .asString();
+            .post(baseUrl + "/sessions")
+            .field("name", "admin")
+            .field("password", "wrong_password")
+            .asString();
 
         var body = responsePost.getBody();
         assertThat(body).contains("Wrong");
