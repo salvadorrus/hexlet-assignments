@@ -3,17 +3,24 @@
 @param MainPage page
 
 @template.layout.page(
-    content = @`
-        @if (page.getName() != null)
-          <h1 class="mb-3"> Добро пожаловать, ${page.getName().toString()}</h1>
-          <form action="${NamedRoutes.logoutPath()}" method="post">
-              <input type="submit" value="Выйти">
-          </form>
-        @else
-            <h1 class="mb-3"> Добро пожаловать, гость</h1>
-            <form action="${NamedRoutes.buildSessionPath()}" method="get">
-                <input type="submit" value="Войти">
-            </form>
-        @endif
-    `
+content = @`
+    !{var name = page.getName();}
+
+    @if(name == null)
+        <a href="${NamedRoutes.buildSessionPath()}">Войти</a>
+    @endif
+
+    @if(name != null)
+        <div>
+            <h2>${name.toString()}</h2>
+        </div>
+
+        <form action="${NamedRoutes.logoutPath()}" method="post">
+            <label>
+                Выйти
+                <input type="submit" />
+            </label>
+        </form>
+    @endif
+`
 )
