@@ -19,16 +19,18 @@ public class UsersRepository {
                 .toList();
     }
 
-    public static Optional<User> find(Long id) {
+    public static User find(Long id) {
         return entities.stream()
                 .filter(entity -> entity.getId().equals(id))
-                .findAny();
+                .findAny()
+                .orElse(null);
     }
 
-    public static Optional<User> findByName(String name) {
+    public static User findByName(String name) {
         return entities.stream()
                 .filter(entity -> entity.getName().equals(name))
-                .findAny();
+                .findAny()
+                .orElse(null);
     }
 
     public static boolean existsByName(String name) {
