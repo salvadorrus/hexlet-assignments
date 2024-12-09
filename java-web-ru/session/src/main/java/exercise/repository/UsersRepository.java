@@ -3,7 +3,6 @@ package exercise.repository;
 import java.util.List;
 import exercise.model.User;
 import exercise.util.Generator;
-import java.util.Optional;
 
 public class UsersRepository {
     private static List<User> entities = Generator.getUsers();
