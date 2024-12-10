@@ -17,7 +17,7 @@ content  = @`
 
 
             <table class="table table-striped">
-                @for(var post : page.getPostList())
+                @for(var post : page.getPosts())
                     <tr>
                         <td>
                             ${post.getId()}
