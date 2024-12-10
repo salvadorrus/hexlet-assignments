@@ -24,29 +24,27 @@ public class PostsController {
     // BEGIN
     public static void index(Context ctx) {
         var posts = PostRepository.getEntities();
-        var page = new PostsPage(posts);
         String flash = ctx.consumeSessionAttribute("flash");
+        var page = new PostsPage(posts);
         page.setFlash(flash);
         ctx.render("posts/index.jte", Collections.singletonMap("page", page));
     }
 
     public static void create(Context ctx) {
-        var name = ctx.formParam("name");
-        var body = ctx.formParam("body");
         try {
-            ctx.formParamAsClass("title", String.class)
-                    .check(value -> value.length() > 2, "Название не должно быть короче двух символов")
+            var name = ctx.formParamAsClass("name", String.class)
+                    .check(value -> value.length() >= 2, "Название поста слишком короткое")
                     .get();
-
+            var body = ctx.formParam("body");
             var post = new Post(name, body);
             PostRepository.save(post);
-            ctx.sessionAttribute("flash", "Post was successfully created!");
+            ctx.sessionAttribute("flash", "Пост был успешно создан!");
             ctx.redirect(NamedRoutes.postsPath());
         } catch (ValidationException e) {
+            var name = ctx.formParam("name");
+            var body = ctx.formParam("body");
             var page = new BuildPostPage(name, body, e.getErrors());
-            ctx.sessionAttribute("errorFlash", "Не удалось создать пост!");
-            page.setErrorFlash(ctx.consumeSessionAttribute("errorFlash"));
-            ctx.status(422).render("post/build.jte", Collections.singletonMap("page", page));
+            ctx.render("posts/build.jte", Collections.singletonMap("page", page));
         }
     }
     // END
