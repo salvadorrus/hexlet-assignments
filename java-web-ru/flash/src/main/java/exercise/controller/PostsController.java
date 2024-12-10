@@ -42,6 +42,8 @@ public class PostsController {
             ctx.redirect(NamedRoutes.postsPath());
         } catch (ValidationException e) {
             var page = new BuildPostPage(name, body, e.getErrors());
+            ctx.sessionAttribute("errorFlash", "Не удалось создать пост!");
+            page.setErrorFlash(ctx.consumeSessionAttribute("errorFlash"));
             ctx.status(422).render("post/build.jte", model("page", page));
         }
     }
