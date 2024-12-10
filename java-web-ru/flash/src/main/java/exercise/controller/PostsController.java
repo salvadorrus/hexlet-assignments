@@ -34,7 +34,7 @@ public class PostsController {
         var name = ctx.formParam("name");
         var body = ctx.formParam("body");
         try {
-            ctx.formParamAsClass("title", String.class)
+            ctx.formParamAsClass("name", String.class)
                     .check(value -> value.length() > 2, "Название не должно быть короче двух символов")
                     .get();
 
