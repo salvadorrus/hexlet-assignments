@@ -2,6 +2,7 @@ package exercise.controller;
 
 import static io.javalin.rendering.template.TemplateUtil.model;
 
+import exercise.dto.BasePage;
 import exercise.dto.posts.PostsPage;
 import exercise.dto.posts.PostPage;
 import exercise.model.Post;
@@ -11,6 +12,8 @@ import exercise.util.NamedRoutes;
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
 import io.javalin.validation.ValidationException;
+
+import java.util.Collections;
 
 public class PostsController {
 
@@ -25,7 +28,7 @@ public class PostsController {
         var page = new PostsPage(posts);
         String flash = ctx.consumeSessionAttribute("flash");
         page.setFlash(flash);
-        ctx.render("posts/index.jte", model("page", page));
+        ctx.render("posts/index.jte", Collections.singletonMap("page", page));
     }
 
     public static void create(Context ctx) {
@@ -41,10 +44,10 @@ public class PostsController {
             ctx.sessionAttribute("flash", "Post was successfully created!");
             ctx.redirect(NamedRoutes.postsPath());
         } catch (ValidationException e) {
-            var page = new BuildPostPage(name, body, e.getErrors());
+            var page = new BasePage();
             ctx.sessionAttribute("errorFlash", "Не удалось создать пост!");
             page.setErrorFlash(ctx.consumeSessionAttribute("errorFlash"));
-            ctx.status(422).render("post/build.jte", model("page", page));
+            ctx.status(422).render("post/build.jte", Collections.singletonMap("page", page));
         }
     }
     // END
