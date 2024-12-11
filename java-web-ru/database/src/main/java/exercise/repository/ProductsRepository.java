@@ -55,7 +55,7 @@ public class ProductsRepository extends BaseRepository {
                 var id = resultSet.getLong("id");
                 var title = resultSet.getString("title");
                 var price = resultSet.getInt("price");
-                var product = new Product(title, price);
+                Product product = new Product(title, price);
                 product.setId(id);
                 result.add(product);
             }
