@@ -12,16 +12,16 @@ import java.sql.Statement;
 public class ProductsRepository extends BaseRepository {
 
     // BEGIN
-    public static void save(Product product) throws SQLException {
+    public static void save(Product products) throws SQLException {
         String sql = "INSERT INTO products (title, price) VALUES (?, ?)";
         try (var conn = dataSource.getConnection();
              var preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            preparedStatement.setString(1, product.getTitle());
-            preparedStatement.setString(2, String.valueOf(product.getPrice()));
+            preparedStatement.setString(1, products.getTitle());
+            preparedStatement.setString(2, String.valueOf(products.getPrice()));
             preparedStatement.executeUpdate();
             var generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()) {
-                product.setId(generatedKeys.getLong(1));
+                products.setId(generatedKeys.getLong(1));
             } else {
                 throw new SQLException("DB have not returned an id after saving an entity");
             }
@@ -53,7 +53,7 @@ public class ProductsRepository extends BaseRepository {
             var result = new ArrayList<Product>();
             while (resultSet.next()) {
                 var id = resultSet.getLong("id");
-                var title= resultSet.getString("title");
+                var title = resultSet.getString("title");
                 var price = resultSet.getInt("price");
                 var product = new Product(title, price);
                 product.setId(id);
