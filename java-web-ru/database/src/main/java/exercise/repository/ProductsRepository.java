@@ -35,7 +35,7 @@ public class ProductsRepository extends BaseRepository {
             stmt.setLong(1, id);
             var resultSet = stmt.executeQuery();
             if (resultSet.next()) {
-                var title = resultSet.getString("title ");
+                var title = resultSet.getString("title");
                 var price = resultSet.getInt("price");
                 Product product = new Product(title, price);
                 product.setId(id);
@@ -44,6 +44,7 @@ public class ProductsRepository extends BaseRepository {
             return Optional.empty();
         }
     }
+
 
     public static List<Product> getEntities() throws SQLException {
         var sql = "SELECT * FROM products";
