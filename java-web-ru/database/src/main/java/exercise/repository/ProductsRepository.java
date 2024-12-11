@@ -17,7 +17,7 @@ public class ProductsRepository extends BaseRepository {
         try (var conn = dataSource.getConnection();
              var preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, products.getTitle());
-            preparedStatement.setString(2, String.valueOf(products.getPrice()));
+            preparedStatement.setInt(2, products.getPrice());
             preparedStatement.executeUpdate();
             var generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()) {
