@@ -37,7 +37,7 @@ public class ProductsRepository extends BaseRepository {
             if (resultSet.next()) {
                 var title = resultSet.getString("title ");
                 var price = resultSet.getInt("price");
-                var product = new Product(title, price);
+                Product product = new Product(title, price);
                 product.setId(id);
                 return Optional.of(product);
             }
