@@ -5,7 +5,6 @@ import exercise.controller.PostsController;
 import exercise.controller.RootController;
 import exercise.util.NamedRoutes;
 import io.javalin.rendering.template.JavalinJte;
-
 import org.apache.commons.codec.digest.DigestUtils;
 
 public final class App {
