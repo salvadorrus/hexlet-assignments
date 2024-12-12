@@ -13,13 +13,12 @@ public class HelloServlet extends HttpServlet {
     // BEGIN
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("name");
-
+        var name = req.getParameter("name");
         if (name.isEmpty()) {
             name = "Guest";
         }
 
-        String message = String.format("Hello, " + name + "!");
+        String message = "Hello, " + name + "!";
         req.setAttribute("message", message);
         req.getRequestDispatcher("/WEB-INF/hello.jsp").forward(req, resp);
     }
