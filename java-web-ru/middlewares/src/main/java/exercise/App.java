@@ -33,7 +33,7 @@ public final class App {
         // BEGIN
         app.after(ctx -> {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hashBytes = md.digest();
+            byte[] hashBytes = md.digest(ctx.bodyAsBytes());
 
             StringBuilder hexString = new StringBuilder(2 * hashBytes.length);
             for (byte hashByte : hashBytes) {
@@ -43,7 +43,6 @@ public final class App {
                 }
                 hexString.append(hex);
             }
-            //return hexString.toString();
             System.out.println("X-Response-Digest: " + hexString);
         });
         // END
