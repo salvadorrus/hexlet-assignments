@@ -6,7 +6,7 @@ import exercise.controller.RootController;
 import exercise.util.NamedRoutes;
 import io.javalin.rendering.template.JavalinJte;
 
-import org.apache.commons.codec.digest.DigestUtils;
+//import org.apache.commons.codec.digest.DigestUtils;
 
 import java.security.MessageDigest;
 
@@ -33,9 +33,18 @@ public final class App {
         // BEGIN
         app.after(ctx -> {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
-            // Обновить дайджест входными данными
-            byte [] hashBytes = md.digest();
-            System.out.println("X-Response-Digest: " + hashBytes);
+            byte[] hashBytes = md.digest();
+
+            StringBuilder hexString = new StringBuilder();
+            for (byte hashByte : hashBytes) {
+                String hex = Integer.toHexString(0xff & hashByte);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+            //return hexString.toString();
+            System.out.println("X-Response-Digest: " + hexString);
         });
         // END
 
