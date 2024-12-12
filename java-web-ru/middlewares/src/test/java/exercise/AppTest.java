@@ -138,6 +138,7 @@ class AppTest {
             var body = response.body().string();
             var expectedDigest = DigestUtils.sha256Hex(body);
 
+
             assertThat(response.code()).isEqualTo(200);
             assertThat(body).isNotNull();
 

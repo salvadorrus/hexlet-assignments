@@ -6,7 +6,7 @@ import exercise.controller.RootController;
 import exercise.util.NamedRoutes;
 import io.javalin.rendering.template.JavalinJte;
 
-//import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.security.MessageDigest;
 
@@ -32,18 +32,8 @@ public final class App {
 
         // BEGIN
         app.after(ctx -> {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hashBytes = md.digest(ctx.bodyAsBytes());
-
-            StringBuilder hexString = new StringBuilder(2 * hashBytes.length);
-            for (byte hashByte : hashBytes) {
-                String hex = Integer.toHexString(0xff & hashByte);
-                if (hex.length() == 1) {
-                    hexString.append('0');
-                }
-                hexString.append(hex);
-            }
-            System.out.println("X-Response-Digest: " + hexString);
+            String sha256hex = DigestUtils.sha256Hex(new PostsController().toString());
+            System.out.println("X-Response-Digest: " + sha256hex);
         });
         // END
 
