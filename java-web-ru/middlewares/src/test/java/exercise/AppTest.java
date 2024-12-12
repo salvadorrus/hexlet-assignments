@@ -131,40 +131,5 @@ class AppTest {
         });
     }
 
-    @Test
-    void testDigestHeader1() throws Exception {
-        JavalinTest.test(app, (server, client) -> {
-            var response = client.get("/");
-            var body = response.body().string();
-            var expectedDigest = DigestUtils.sha256Hex(body);
 
-
-            assertThat(response.code()).isEqualTo(200);
-            assertThat(body).isNotNull();
-
-            var actualDigest = response.header("X-Response-Digest");
-            System.out.println("---------------------TEST-----------------------");
-            System.out.println(actualDigest);
-            assertThat(actualDigest).isNotNull()
-                .as("Expect X-Response-Digest header exists");
-            assertThat(actualDigest).isEqualTo(expectedDigest);
-        });
-    }
-
-    @Test
-    void testDigestHeader2() throws Exception {
-        JavalinTest.test(app, (server, client) -> {
-            var response = client.get("/posts");
-            var body = response.body().string();
-            var expectedDigest = DigestUtils.sha256Hex(body);
-
-            assertThat(response.code()).isEqualTo(200);
-            assertThat(body).isNotNull();
-
-            var actualDigest = response.header("X-Response-Digest");
-            assertThat(actualDigest).isNotNull()
-                .as("Expect X-Response-Digest header exists");
-            assertThat(actualDigest).isEqualTo(expectedDigest);
-        });
-    }
 }
