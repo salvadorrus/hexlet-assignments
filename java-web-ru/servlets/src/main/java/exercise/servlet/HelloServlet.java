@@ -16,7 +16,7 @@ public class HelloServlet extends HttpServlet {
         String name = getInitParameter("name");
 
         if (name.isEmpty()) {
-            name = "Guest!";
+            name = "Guest";
         }
 
         String message = "Hello, " + name + "!";
