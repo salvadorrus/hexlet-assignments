@@ -13,10 +13,10 @@ public class HelloServlet extends HttpServlet {
     // BEGIN
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = String.valueOf(req);
+        String name = getInitParameter("name");
         String message1 = "Hello, " + name + "!";
         String message2 = "Hello, Guest!";
-        if (name == null) {
+        if (name.isEmpty()) {
             req.setAttribute("message", message2);
         } else {
             req.setAttribute("message", message1);
