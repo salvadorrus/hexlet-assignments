@@ -143,6 +143,8 @@ class AppTest {
             assertThat(body).isNotNull();
 
             var actualDigest = response.header("X-Response-Digest");
+            System.out.println("---------------------TEST-----------------------");
+            System.out.println(actualDigest);
             assertThat(actualDigest).isNotNull()
                 .as("Expect X-Response-Digest header exists");
             assertThat(actualDigest).isEqualTo(expectedDigest);

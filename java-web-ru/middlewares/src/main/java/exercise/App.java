@@ -31,7 +31,7 @@ public final class App {
         // BEGIN
         app.after(ctx -> {
             String sha256hex = DigestUtils.sha256Hex(app.toString());
-            System.out.println("X-Response-Digest: " + sha256hex);
+            System.out.println("X-Response-Digest" + sha256hex);
         });
         // END
 
