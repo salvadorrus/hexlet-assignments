@@ -8,9 +8,6 @@ import io.javalin.rendering.template.JavalinJte;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import java.io.InputStream;
-import java.security.MessageDigest;
-
 public final class App {
 
     public static Javalin getApp() {
@@ -33,7 +30,7 @@ public final class App {
 
         // BEGIN
         app.after(ctx -> {
-            String sha256hex = DigestUtils.sha256Hex((InputStream) ctx);
+            String sha256hex = DigestUtils.sha256Hex(app.toString());
             System.out.println("X-Response-Digest: " + sha256hex);
         });
         // END
