@@ -8,6 +8,7 @@ import io.javalin.rendering.template.JavalinJte;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import java.io.InputStream;
 import java.security.MessageDigest;
 
 public final class App {
@@ -32,7 +33,7 @@ public final class App {
 
         // BEGIN
         app.after(ctx -> {
-            String sha256hex = DigestUtils.sha256Hex(new PostsController().toString());
+            String sha256hex = DigestUtils.sha256Hex((InputStream) ctx);
             System.out.println("X-Response-Digest: " + sha256hex);
         });
         // END
