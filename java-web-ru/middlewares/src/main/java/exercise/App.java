@@ -35,7 +35,7 @@ public final class App {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] hashBytes = md.digest();
 
-            StringBuilder hexString = new StringBuilder();
+            StringBuilder hexString = new StringBuilder(2 * hashBytes.length);
             for (byte hashByte : hashBytes) {
                 String hex = Integer.toHexString(0xff & hashByte);
                 if (hex.length() == 1) {
