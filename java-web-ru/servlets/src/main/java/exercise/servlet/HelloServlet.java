@@ -18,7 +18,7 @@ public class HelloServlet extends HttpServlet {
             name = "Guest";
         }
 
-        String message = "Hello, " + name + "!";
+        var message = String.format("Hello, %s!", name);
         req.setAttribute("message", message);
         req.getRequestDispatcher("/WEB-INF/hello.jsp").forward(req, resp);
     }
