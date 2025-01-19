@@ -10,12 +10,13 @@ public class Application {
         var address = new Address("London", 12345678);
 
         // BEGIN
+        // Итерируем все методы класса
         for (Method method : Address.class.getDeclaredMethods()) {
 
-            // Проверяем, есть ли у метода аннотация @LogExecutionTime
+            // Проверяем, есть ли у метода аннотация @Inspect
             if (method.isAnnotationPresent(Inspect.class)) {
                 try {
-                    // Выполняем метод с аннотацией LogExecutionTime
+                    // Выполняем метод с аннотацией Inspect
                     method.invoke(address);
                 } catch (Exception e) {
                     e.printStackTrace();
