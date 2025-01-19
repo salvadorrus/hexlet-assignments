@@ -26,7 +26,7 @@ public class Application {
                 long endTime = System.currentTimeMillis();
                 //long executionTime = endTime - startTime;
 
-                System.out.println(method.getName() + method.getAnnotatedReturnType());
+                System.out.println("Method " + method.getName() + " returns a value of type " + method.getAnnotatedReturnType());
                 //System.out.println("Execution time: " + executionTime + " milliseconds");
             }
         }
