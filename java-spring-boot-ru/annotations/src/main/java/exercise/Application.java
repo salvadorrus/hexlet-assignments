@@ -24,10 +24,10 @@ public class Application {
                 }
 
                 long endTime = System.currentTimeMillis();
-                long executionTime = endTime - startTime;
+                //long executionTime = endTime - startTime;
 
-                System.out.println("Executed method: " + method.getName());
-                System.out.println("Execution time: " + executionTime + " milliseconds");
+                System.out.println(method.getName() + method.getAnnotatedReturnType());
+                //System.out.println("Execution time: " + executionTime + " milliseconds");
             }
         }
         // END
