@@ -38,7 +38,7 @@ public class Application {
         return post;
     }
 
-    @GetMapping("/posts{id}") // Вывод страницы
+    @GetMapping("/posts/{id}") // Вывод страницы
     public Optional<Post> show(@PathVariable String id) {
         return posts.stream()
                 .filter(p -> p.getId().equals(id)).findFirst();
@@ -58,7 +58,7 @@ public class Application {
         return data;
     }
 
-    @DeleteMapping("/pages/{id}") // Удаление страницы
+    @DeleteMapping("/posts/{id}") // Удаление страницы
     public void destroy(@PathVariable String id) {
         posts.removeIf(p -> p.getId().equals(id));
     }
