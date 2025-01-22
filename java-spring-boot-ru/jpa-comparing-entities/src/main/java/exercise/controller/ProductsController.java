@@ -32,7 +32,7 @@ public class ProductsController {
     }
 
     // BEGIN
-    @PostMapping(path = "")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody Product product) {
         if (productRepository.findAll().contains(product)) {

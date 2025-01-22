@@ -12,7 +12,7 @@ import lombok.Setter;
 
 // BEGIN
 @Entity
-@Table(name = "Product")
+@Table(name = "products")
 @Getter
 @Setter
 @EqualsAndHashCode(of = {"title", "price"})
