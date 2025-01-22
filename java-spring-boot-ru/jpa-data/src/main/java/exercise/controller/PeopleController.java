@@ -29,12 +29,6 @@ public class PeopleController {
     }
 
     // BEGIN
-    @GetMapping(path = "")
-    public List<Person> index() {
-        var person = personRepository.findAll();
-        return person;
-    }
-
     @PostMapping(path = "")
     @ResponseStatus(HttpStatus.CREATED)
     public Person create(@RequestBody Person person) {
@@ -42,8 +36,14 @@ public class PeopleController {
         return person;
     }
 
-    @DeleteMapping(path = "/{id}") // Удаление страницы
-    public void delete(@PathVariable long id) {
+    @GetMapping(path = "")
+    public List<Person> index() {
+        var person = personRepository.findAll();
+        return person;
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public void destroy(@PathVariable Long id) {
         personRepository.deleteById(id);
     }
     // END
