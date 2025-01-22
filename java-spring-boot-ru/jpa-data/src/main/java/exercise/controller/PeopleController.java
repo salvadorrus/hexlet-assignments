@@ -41,9 +41,9 @@ public class PeopleController {
         var person = personRepository.findAll();
         return person;
     }
-
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @DeleteMapping(path = "/{id}")
-    public void destroy(@PathVariable Long id) {
+    public void destroy(@PathVariable long id) {
         personRepository.deleteById(id);
     }
     // END
