@@ -32,34 +32,20 @@ public class TasksController {
     }
 
     // BEGIN
-//    @PostMapping(path = "")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public void create(@RequestBody Task task) {
-//        if (taskRepository.findAll().contains(task)) {
-//            throw new ResourceNotFoundException("Product " + task.getTitle() + " already exists");
-//        } else {
-//            taskRepository.save(task);
-//        }
-//    }
-
-    @PostMapping
+    @PostMapping(path = "")
     @ResponseStatus(HttpStatus.CREATED)
     public Task create(@RequestBody Task task) {
-        taskRepository.save(task);
-        return task;
+        return taskRepository.save(task);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(path = "/{id}")
     public Task update(@PathVariable long id, @RequestBody Task taskData) {
-        var task = taskRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Product with id " + id + " not found"));
-
+        var task =  taskRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Task with id " + id + " not found"));
         task.setTitle(taskData.getTitle());
         task.setDescription(taskData.getDescription());
-
         taskRepository.save(task);
-
-        return task;
+        return taskData;
     }
     // END
 
