@@ -1,6 +1,7 @@
 package exercise.dto;
 
 import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,6 @@ public class PostDTO {
     private Long id;
     private String title;
     private String body;
-    private String comments;
+    private List<CommentDTO> comments;
 }
 // END

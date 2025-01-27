@@ -18,7 +18,7 @@ import exercise.dto.PostDTO;
 
 // BEGIN
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/posts")
 public class PostsController {
     @Autowired
     private CommentRepository commentRepository;
@@ -26,7 +26,7 @@ public class PostsController {
     @Autowired
     private PostRepository postRepository;
 
-    @GetMapping("/users")
+    @GetMapping
     public List<PostDTO> index() {
         var users = postRepository.findAll();
         var result = users.stream()
@@ -35,11 +35,11 @@ public class PostsController {
         return result;
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     // Пользователь автоматически преобразуется в JSON
-    public PostDTO show(@PathVariable Long id) {
+    public PostDTO show(@PathVariable long id) {
         var post = postRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Post with id " +  id + " not found"));
         return postToDTO(post);
     }
 
@@ -50,7 +50,7 @@ public class PostsController {
         dtoPost.setBody(post.getBody());
         var comments = commentRepository.findByPostId(post.getId());
         var commentsDTO = comments.stream().map(this::commentToDTO).toList();
-        dtoPost.setComments(commentsDTO.toString());
+        dtoPost.setComments(commentsDTO);
         return dtoPost;
     }
 
