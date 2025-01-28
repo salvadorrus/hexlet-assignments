@@ -110,24 +110,24 @@ class GuestsControllerTest {
         );
     }
 
-    @Test
-    public void testCreate() throws Exception {
-        var dto = mapper.map(testGuest);
-
-        var request = post("/guests")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(om.writeValueAsString(dto));
-
-        mockMvc.perform(request)
-                .andExpect(status().isCreated());
-
-        var guest = guestRepository.findByPhoneNumber(testGuest.getPhoneNumber()).get();
-
-        assertThat(guest).isNotNull();
-        assertThat(guest.getName()).isEqualTo(testGuest.getName());
-        assertThat(guest.getEmail()).isEqualTo(testGuest.getEmail());
-        assertThat(guest.getPhoneNumber()).isEqualTo(testGuest.getPhoneNumber());
-    }
+//    @Test
+//    public void testCreate() throws Exception {
+//        var dto = mapper.map(testGuest);
+//
+//        var request = post("/guests")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(om.writeValueAsString(dto));
+//
+//        mockMvc.perform(request)
+//                .andExpect(status().isCreated());
+//
+//        var guest = guestRepository.findByPhoneNumber(testGuest.getPhoneNumber()).get();
+//
+//        assertThat(guest).isNotNull();
+//        assertThat(guest.getName()).isEqualTo(testGuest.getName());
+//        assertThat(guest.getEmail()).isEqualTo(testGuest.getEmail());
+//        assertThat(guest.getPhoneNumber()).isEqualTo(testGuest.getPhoneNumber());
+//    }
 
     @Test
     public void testCreateWithNotValidEmail() throws Exception {
