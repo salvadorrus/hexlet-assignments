@@ -49,7 +49,7 @@ public class ProductsController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductDTO create(@Valid @RequestBody ProductCreateDTO productData) {
+    public ProductDTO create(@RequestBody ProductCreateDTO productData) {
         var product = productMapper.map(productData);
         productRepository.save(product);
         return productMapper.map(product);
@@ -64,9 +64,6 @@ public class ProductsController {
 
     @PutMapping("/{id}")
     public ProductDTO update(@RequestBody @Valid ProductUpdateDTO productData, @PathVariable Long id) {
-        var categoryId = productData.getCategoryId();
-        productRepository.findAll().stream().map(p -> p.getCategory().equals(categoryId)).findFirst()
-                .orElseThrow(() -> new ResourceNotFoundException(categoryId + " not found"));
         var product = productRepository.findById(id).get();
         productMapper.update(productData, product);
         productRepository.save(product);
