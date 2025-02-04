@@ -3,6 +3,7 @@ package exercise.utils;
 import exercise.model.User;
 import exercise.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -12,14 +13,16 @@ public class UserUtils {
     private UserRepository userRepository;
 
     // BEGIN
-        public User getCurrentUser() {
-            var authentication = SecurityContextHolder.getContext().getAuthentication();
-            if (authentication == null || !authentication.isAuthenticated()) {
-                return null;
-            }
-            var email = authentication.getName();
-            return userRepository.findByEmail(email).get();
+    public User getCurrentUser(){
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication == null || !authentication.isAuthenticated()){
+            return null;
         }
+        var email = authentication.getName();
+
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new AuthenticationCredentialsNotFoundException("Not Authorised"));
+    }
     // END
 
     public User getTestUser() {
