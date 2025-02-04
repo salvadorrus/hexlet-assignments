@@ -11,19 +11,12 @@ import org.springframework.stereotype.Service;
 // BEGIN
 @Service
 public class CustomUserDetailsService implements UserDetailsManager {
-
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        // Нужно добавить в репозиторий findByEmail
-        var user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        return user;
+        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
     @Override
